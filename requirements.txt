@@ -9,7 +9,7 @@ opencv-python-headless>=4.7.0.72
 
 # === Voice Call Library ===
 # For Python 3.10 or lower:
-pytgcalls==1.2.2
+py‑tgcalls>=2.2.3
 
 # OR for Python 3.11+ use this instead (uncomment and comment pytgcalls):
 # ntgcalls==2.0.2
