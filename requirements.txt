@@ -3,8 +3,13 @@ tgcrypto==1.2.5
 aiohttp>=3.8.0
 py-cord>=2.4.1
 python-dotenv>=1.0.0
-pytgcalls==1.2.3  # Use this if ntgcalls fails or Python < 3.11
-# ntgcalls==2.0.2  # Only use with Python >= 3.11 and proper wheel support
 psutil>=5.9.0
 pillow>=10.0.0
 opencv-python-headless>=4.7.0.72
+
+# === Voice Call Library ===
+# For Python 3.10 or lower:
+pytgcalls==1.2.2
+
+# OR for Python 3.11+ use this instead (uncomment and comment pytgcalls):
+# ntgcalls==2.0.2
