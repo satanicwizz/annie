@@ -1,14 +1,26 @@
-FROM nikolaik/python-nodejs:python3.10-nodejs19
+# Use Python 3.11 for ntgcalls compatibility
+FROM python:3.11-slim
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends ffmpeg \
-    && apt-get clean \
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies (especially for opencv & audio)
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    libsm6 \
+    libxext6 \
+    libx11-dev \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
+# Copy only requirements first
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir --upgrade pip \
+ && pip install --no-cache-dir --upgrade -r requirements.txt
+
+# Copy rest of the project
 COPY . .
 
-RUN pip3 install --no-cache-dir --upgrade pip \
-    && pip3 install --no-cache-dir --upgrade -r requirements.txt
-
-CMD bash start
+# Set entrypoint
+CMD ["python", "bot.py"]
