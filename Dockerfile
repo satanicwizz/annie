@@ -4,7 +4,7 @@ FROM python:3.11-slim
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies (especially for opencv & audio)
+# Install system dependencies required for audio, pillow, opencv
 RUN apt-get update && apt-get install -y \
     ffmpeg \
     libsm6 \
@@ -12,15 +12,15 @@ RUN apt-get update && apt-get install -y \
     libx11-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy only requirements first
+# Copy only requirements first (to cache layers)
 COPY requirements.txt .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir --upgrade pip \
  && pip install --no-cache-dir --upgrade -r requirements.txt
 
-# Copy rest of the project
+# Copy the rest of the app
 COPY . .
 
-# Set entrypoint
+# Start the bot
 CMD ["python", "bot.py"]
